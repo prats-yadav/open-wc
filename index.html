@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Put your description here.">
-  <link rel="stylesheet" type="text/css" href="./style.css">
-  <base href="/">
+  <link rel="stylesheet" type="text/css" href="./src/style.css">
 
   <style>
     html,
@@ -21,9 +20,14 @@
 </head>
 
 <body>
-  <link rel="stylesheet" type="text/css" href="./style.css">
-  <web-app></web-app>
-  <script type="module" src="./src/web-app.js"></script>
+  <h1 class="heading">Web Series</h1>
+  <main class="app-container">
+    <web-series-form></web-series-form>
+    <web-series-card></web-series-card>
+  </main>
+  <p class="app-footer"></p>
+  <script src="./src/WebSeriesForm.js"></script>
+  <script src="./src/WebSeriesCard.js"></script>
 </body>
 
 </html>
