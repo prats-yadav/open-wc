@@ -1,82 +1,86 @@
-const newtemplate = document.createElement('template');
-newtemplate.innerHTML=`
-<style>
+import {LitElement,html,css} from 'lit-element';
+// import {WebCard} from './WebCard';
+// import { repeat } from "lit-html/directives/repeat";
 
-.web-series-overview{
+// customElements.define('web-card', WebCard);
+export class WebSeriesCard extends LitElement{
+
+
+static get properties(){
+    return {
+        seriesData:{type: Array}
+    }
+}
+static get styles() {
+return css`  
+.web-series-overview {
     display: grid;
+    float:left;
     grid-template-columns: auto auto auto;
-    /* grid-gap: 10px; */
     background-color: #e9f0f5;
-    /* float: center; */
     padding: 10px;
     border: 1px solid red;
     height: 88vh;
     width: 62%;
     margin: auto;
 }
-
-.web-series-card {
+.web-card {
     box-shadow: 0 4px 8px 0 rgba(138, 3, 3, 0.2);
-    padding: 20px;
-    margin: auto;
+    margin: 12px;
     text-align: center;
     font-family: arial;
     min-width: 40%;
     max-height: 30vh;
     background-color: lightskyblue;
-    margin: auto;
     padding: 12px;
-}
+    }
+    @media screen and (max-width: 1000px) {
+    .web-series-overview {
+        display: flex;
+        flex-direction: column;
+        padding: 1px;
+        border: 1px solid red;
+        height: auto;
+        width: 40%;
+        margin: 1px;
 
-</style>
-<div class="web-series-overview">
-		<div class="web-series-card">
-		  <h3>Breaking Bad</h3>
-			<p class="title"> Vince Gilligan </p>
-			<p> Bryan Cranston</p>
-			<p> Netflix</p>
-		</div>
-		<div class="web-series-card">
-			<h3>Game of Thrones</h3>
-			<p class="title">David Benioff</p>
-			<p>Emilia Clarke</p>
-			<p>Netflix</p>		
-		</div>
-		<div class="web-series-card">
-			<h3 >Mirzapur</h3>
-			<p class="title">Puneet Krishna</p>
-			<p>Pankaj Tripathi</p>
-			<p>AmazonPrime</p>
-		</div>
-		<div class="web-series-card">
-			<h3>The Boys</h3>
-			<p class="title"> Eric Kripke </p>
-			<p> Karl Urban </p>
-			<p>AmazonPrime</p>
-		</div>
-		<div class="web-series-card">
-			<h3>Daredevil</h3>
-			<p class="title">Drew Goddard</p>
-			<p>Charlie Cox</p>
-			<p>Netflix</p>
-		</div>
-		<div class="web-series-card">
-			<h3>The Walking Dead</h3>
-			<p class="title">Frank Darabont</p>
-			<p>Andrew Lincoln</p>
-			<p>AMC</p>
-		</div>
-    </div>
+    }
+    .web-card {
+        float: left;
+        text-align: center;
+    }
     
 `;
-
-class WebSeriesCard extends HTMLElement{
-
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.appendChild(newtemplate.content.cloneNode(true));
-    }
-
 }
-window.customElements.define('web-series-card', WebSeriesCard);
+
+constructor(){
+    super();
+    this.seriesData =[
+        {title:"Breaking Bad",director:"Vince Gilligan",star:"Bryan Cranston",platform:"Netflix"},
+        {title:"Game of Thrones",director:"David Benioff",star:"Emilia Clarke",platform:"Netflix"},
+        {title:"Mirzapur",director:"Puneet Krishna",star:"Pankaj Tripathi",platform:"AmazonPrime"},
+        {title:"The Boys",director:"Eric Kripke",star:"Karl Urban",platform:"AmazonPrime"},
+        {title:"Daredevil",director:"Drew Goddard",star:"Charlie Cox",platform:"Netflix"},
+        {title:"The Walking Dead",director:"Frank Darabont",star:"Andrew Lincoln",platform:"AMC"}
+
+    ]
+}
+
+
+render() {
+    return html`
+    <div class="web-series-overview">
+        ${this.seriesData.map(
+            data =>html`
+            <div class="web-card">
+            <h3>${data.title}</h3>
+            <p>${data.director}</p>
+            <p>${data.star}</p>
+            <p>${data.platform}</p>
+            </div>	
+            `
+          )}
+    </div>
+    `;
+  }
+};

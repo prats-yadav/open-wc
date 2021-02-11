@@ -1,6 +1,21 @@
-const template = document.createElement('template');
-template.innerHTML=`
-<style>
+import { LitElement, html, css } from 'lit-element';
+import {WebCard} from './WebCard';
+
+customElements.define('web-card', WebCard);
+export class WebSeriesForm extends LitElement{
+  static get properties() {
+    return {
+      title:{ type : String},
+      director: { type : String},
+      star: { type : String},
+      platform: { type : String},
+      add: { type : String}
+    };
+  
+}
+static get styles() {
+  return css`
+
 .web-series-form {
   width: 35%;
   float: left;
@@ -52,67 +67,60 @@ template.innerHTML=`
       border: 1px solid red;
       height: auto;
   }
+  .text-box {
+width:70%;
+  }
 }
-
-</style>
-<div>
-      <div class="web-series-form">
-            <form id="input-form" action="/action">
-                <div class="web-series-form-input">
-                    <label for="title">Title: </label>
-                    <input type="text" id="title" name="title" placeholder="title"></input>
-                </div>
-    
-                <div class="web-series-form-input">
-                    <label for="dirname">Director: </label>
-                    <input type="text" id="dirname" name="dirname" placeholder="director"></input>
-                </div>
-    
-                <div class="web-series-form-input">
-                    <label for="starname">Star Name: </label>
-                    <input type="text" id="starname" name="starname" placeholder="star"></input>
-                </div>
-    
-                <div class="web-series-form-input">
-                    <label for="streaming">StreamingOn : </label>
-                    <select id="streaming" name="streaming">
-                      <option value="prime">Amazon Prime</option>
-                      <option value="netflix">Netflix</option>
-                      <option value="sonyliv">Sony Liv</option>
-                    </select>
-                </div>
-    
-                <div class="web-series-form-input">
-                    <button onclick=submit() value="Submit form">ADD</button>
-                </div>
-            </form>
-        </div>
-</div>
 `;
-
-class WebSeriesForm extends HTMLElement{
-  static get properties() {
-    return {
-      heading: { type: String },
-      title:{ type : String},
-      director: { type : String},
-      star: { type : String},
-      platform: { type : String},
-      add: { type : String}
-    };
-  }
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.heading = 'Web Series';
-    this.title = 'Title';
-    this.director = 'Director Name';
-    this.star = 'Star Name';
-    this.platform = 'Streaming On';
-    this.add = 'ADD';
-  }
-
+}
+constructor() {
+  super();
+  this.title = 'Title';
+  this.director = 'Director Name';
+  this.star = 'Star Name';
+  this.platform = 'Streaming On';
+  this.add = 'ADD';
 }
 
-window.customElements.define('web-series-form', WebSeriesForm);
+render() {
+  return html`
+    <div>
+    <div class="web-series-form">
+          <form id="input-form" action="/action">
+              <div class="web-series-form-input">
+                  <label for="title">${this.title}: </label>
+                  <input class="text-box" type="text" id="title" name="title" placeholder="title"></input>
+              </div>
+  
+              <div class="web-series-form-input">
+                  <label for="dirname">${this.director} : </label>
+                  <input class="text-box" type="text" id="dirname" name="dirname" placeholder="director"></input>
+              </div>
+  
+              <div class="web-series-form-input">
+                  <label for="starname">${this.star}  : </label>
+                  <input class="text-box" type="text" id="starname" name="starname" placeholder="star"></input>
+              </div>
+  
+              <div class="web-series-form-input">
+                  <label for="streaming">${this.platform} : </label>
+                  <select class="text-box" id="streaming" name="streaming">
+                    <option value="prime">Amazon Prime</option>
+                    <option value="netflix">Netflix</option>
+                    <option value="sonyliv">Sony Liv</option>
+                  </select>
+              </div>
+  
+              <div class="web-series-form-input">
+                  <button @click="${this.submitData}">${this.add}</button>
+              </div>
+  
+          </form>
+      </div>
+      </div>
+  `;
+}
+submitData(){
+
+}
+}
