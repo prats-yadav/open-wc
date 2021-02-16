@@ -22,16 +22,12 @@
 <body>
   <h1 class="heading">Web Series</h1>
   <main class="app-container">
-    <web-series-form></web-series-form>
-    <web-series-card></web-series-card>
+    <web-series-app></web-series-app>
   </main>
   <p class="app-footer"></p>
   <script type="module">
-  import {WebSeriesCard} from './src/WebSeriesCard';
-  import {WebSeriesForm} from './src/WebSeriesForm';
-  customElements.define('web-series-form', WebSeriesForm);
-  customElements.define('web-series-card', WebSeriesCard);
-  
+  import {WebSeriesApp} from './src/WebSeriesApp';
+  customElements.define('web-series-app',WebSeriesApp);
   </script>
 </body>
 

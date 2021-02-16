@@ -1,14 +1,11 @@
 import {LitElement,html,css} from 'lit-element';
-// import {WebCard} from './WebCard';
-// import { repeat } from "lit-html/directives/repeat";
+import {webSeriesData} from './WebSeriesList';
 
-// customElements.define('web-card', WebCard);
 export class WebSeriesCard extends LitElement{
-
 
 static get properties(){
     return {
-        seriesData:{type: Array}
+        webSeriesData:{type: Array}
     }
 }
 static get styles() {
@@ -21,7 +18,7 @@ return css`
     padding: 10px;
     border: 1px solid red;
     height: 88vh;
-    width: 62%;
+    width: 125%;
     margin: auto;
 }
 .web-card {
@@ -55,22 +52,23 @@ return css`
 
 constructor(){
     super();
-    this.seriesData =[
-        {title:"Breaking Bad",director:"Vince Gilligan",star:"Bryan Cranston",platform:"Netflix"},
-        {title:"Game of Thrones",director:"David Benioff",star:"Emilia Clarke",platform:"Netflix"},
-        {title:"Mirzapur",director:"Puneet Krishna",star:"Pankaj Tripathi",platform:"AmazonPrime"},
-        {title:"The Boys",director:"Eric Kripke",star:"Karl Urban",platform:"AmazonPrime"},
-        {title:"Daredevil",director:"Drew Goddard",star:"Charlie Cox",platform:"Netflix"},
-        {title:"The Walking Dead",director:"Frank Darabont",star:"Andrew Lincoln",platform:"AMC"}
-
-    ]
+    this.webSeriesData = webSeriesData; 
+    window.addEventListener('card-details',this.addDetails.bind(this)) 
 }
 
+
+disconnectedCallback(){
+    window.removeEventListener('card-details',this.addDetails.bind(this))
+}
+addDetails(e){
+    this.webSeriesData = this.webSeriesData.concat(e.detail.webSeriesData);
+    console.log('e:',e.detail.webSeriesData);
+}
 
 render() {
     return html`
     <div class="web-series-overview">
-        ${this.seriesData.map(
+        ${this.webSeriesData.map(
             data =>html`
             <div class="web-card">
             <h3>${data.title}</h3>
