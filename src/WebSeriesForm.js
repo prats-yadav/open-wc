@@ -104,22 +104,22 @@ render() {
     <div class="web-series-form">
               <div class="web-series-form-input">
                   <label for="title">Title: </label>
-                  <input type="text" class="text-box" id="title" name="titlename"></input>
+                  <input type="text" class="text-box" id="title" name="titlename" onfocus="this.value=''"></input>
               </div>
   
               <div class="web-series-form-input">
                   <label for="dirname">Director : </label>
-                  <input type="text" class="text-box" id="director" name="directorname"></input>          
+                  <input type="text" class="text-box" id="director" name="directorname" onfocus="this.value=''"></input>          
               </div>
   
               <div class="web-series-form-input">
                   <label for="starname">Star : </label>
-                  <input type="text" class="text-box" id="star" name="starname"></input>
+                  <input type="text" class="text-box" id="star" name="starname" onfocus="this.value=''"></input>
               </div>
   
               <div class="web-series-form-input">
                   <label for="streaming">StreamingOn : </label>
-                  <select class="text-box" id="platform" name="platformname">
+                  <select class="text-box" id="platform" name="platformname" onfocus="this.value=''">
                     <option value="prime">Amazon Prime</option>
                     <option value="netflix">Netflix</option>
                     <option value="sonyliv">Sony Liv</option>
@@ -142,8 +142,8 @@ addCardDetails(){
     const val3 = this._getStar();
     const val4 = this._getPlatform();
     console.log('value 1:',val1);
-    this._getTitle.value = "";
     
+  if(val1!="" && val2!="" && val3!="" & val4!=""){  
     this.webSeriesData = [...this.webSeriesData,{title:val1,director:val2,star:val3,platform:val4}];
     console.log(this.webSeriesData);
     this.dispatchEvent(new CustomEvent('card-details',{
@@ -155,6 +155,10 @@ addCardDetails(){
         }
     }))
     this.webSeriesData=[];
+  }
+  if(val1=="" || val2=="" || val3=="" || val4==""){
+    alert("Please enter all input fields");
+  }
 }   
 
 }
