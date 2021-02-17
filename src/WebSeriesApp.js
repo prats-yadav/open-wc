@@ -10,43 +10,48 @@ export class WebSeriesApp extends LitElement{
     constructor(){
         super();
         this.webSeriesList =[
-            {title:"Breaking Bad",director:"Vince Gilligan",star:"Bryan Cranston",platform:"Netflix"},
-            {title:"Game of Thrones",director:"David Benioff",star:"Emilia Clarke",platform:"Netflix"},
-            {title:"Mirzapur",director:"Puneet Krishna",star:"Pankaj Tripathi",platform:"AmazonPrime"},
-            {title:"The Boys",director:"Eric Kripke",star:"Karl Urban",platform:"AmazonPrime"},
-            {title:"Daredevil",director:"Drew Goddard",star:"Charlie Cox",platform:"Netflix"},
-            {title:"The Walking Dead",director:"Frank Darabont",star:"Andrew Lincoln",platform:"AMC"}
-            
-            ];
+        {title:"Breaking Bad",director:"Vince Gilligan",star:"Bryan Cranston",platform:"Netflix"},
+        {title:"Game of Thrones",director:"David Benioff",star:"Emilia Clarke",platform:"Netflix"},
+        {title:"Mirzapur",director:"Puneet Krishna",star:"Pankaj Tripathi",platform:"AmazonPrime"},
+        {title:"The Boys",director:"Eric Kripke",star:"Karl Urban",platform:"AmazonPrime"},
+        {title:"Daredevil",director:"Drew Goddard",star:"Charlie Cox",platform:"Netflix"},
+        {title:"The Walking Dead",director:"Frank Darabont",star:"Andrew Lincoln",platform:"AMC"}
+        ];
+    }
+    connectedCallback(){
+        super.connectedCallback();
+        this.addEventListener('card-details',(e)=>{
+            this.webSeriesList=[...this.webSeriesList,...e.detail.webSeriesData];  
+        });
+        this.addEventListener('card-delete',(e)=>{
+            this.webSeriesList=[...e.detail.webSeriesData];  
+        });
+        console.log('e1:',this.webSeriesList);
+    }
 
-        this.addEventListener('card-details',this.addDetails.bind(this))
-        this.webSeriesData=[];
+    disconnectedCallback(){
+        this.removeEventListener('card-details',(e)=>{
+            this.webSeriesList=[...this.webSeriesList,...e.detail.webSeriesData];    
+        });
+        super.disconnectedCallback();
     }
     
     static get properties(){
         return{
-            webSeriesData:{type : Array},
             webSeriesList:{type : Array},
         }
+    }
     
-    }
-    disconnectedCallback(){
-        this.removeEventListener('card-details',this.addDetails.bind(this))
-    }
-    addDetails(e){
-        this.webSeriesData = e.detail.webSeriesData;
-        console.log('e1:',this.webSeriesData);
-    }
     static get styles() {
         return css`  
-        .web-series-app {
+    .web-series-app {
             display: flex;
             flex-direction: row;
             background-color: #e9f0f5;
             margin: auto;
             width:100%;
-        }
-        .web-card {
+    }
+    .web-card {
     box-shadow: 0 4px 8px 0 rgba(138, 3, 3, 0.2);
     margin: 12px;
     text-align: center;
@@ -74,20 +79,10 @@ export class WebSeriesApp extends LitElement{
         <div class="web-series-app">
            <web-series-form>
            </web-series-form>
-           <web-series-card>
-           </web-series-card>
-           <p>${this.webSeriesData.map(
-            data=>html`
-            <div class="web-card">
-            <h3>${data.title}</h3>
-            <p>${data.director}</p>
-            <p>${data.star}</p>
-            <p>${data.platform}</p>
-            <button @click=${this.deleteCard} alt="deleteButton">Delete</button>
-            </div>
-            `
-          )}</p>
-        </div>
+           <web-series-card
+           .webSeriesData=${this.webSeriesList}
+           ></web-series-card>
+           </div>
         `;
       }
 }

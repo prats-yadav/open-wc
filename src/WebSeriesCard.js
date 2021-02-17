@@ -81,7 +81,7 @@ render() {
             <p>${data.director}</p>
             <p>${data.star}</p>
             <p>${data.platform}</p>
-            <button @click=${this.deleteCard} alt="deleteButton">Delete</button>
+            <button @click=${this.deleteCard} title="${data.title}" alt="deleteButton">Delete</button>
             </div>
             `
           )}
@@ -89,7 +89,19 @@ render() {
     `;
   }
 
-  deleteCard(){
-
+  deleteCard(e){
+    console.log("clicked on delete button");
+    const title=e.target.title;
+    this.webSeriesData=this.webSeriesData.filter(data=>data.title !== title);
+    console.log(this.webSeriesData);
+    this.dispatchEvent(new CustomEvent('card-delete',{
+        bubbles: true,
+        cancelable: false,
+        composed:true,
+        detail:{
+            webSeriesData:this.webSeriesData        
+        }
+    }))
+    this.webSeriesData=[];
   }
 };

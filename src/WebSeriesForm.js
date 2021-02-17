@@ -145,7 +145,7 @@ addCardDetails(){
     
   if(val1!="" && val2!="" && val3!="" & val4!=""){  
     this.webSeriesData = [...this.webSeriesData,{title:val1,director:val2,star:val3,platform:val4}];
-    console.log(this.webSeriesData);
+    // console.log(this.webSeriesData);
     this.dispatchEvent(new CustomEvent('card-details',{
         bubbles: true,
         cancelable: false,
