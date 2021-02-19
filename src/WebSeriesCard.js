@@ -1,10 +1,9 @@
 import {LitElement,html,css} from 'lit-element';
-import {webSeriesData} from './WebSeriesList';
 
 export class WebSeriesCard extends LitElement{
 constructor(){
         super();
-        this.webSeriesData = webSeriesData;   
+         
 }
 static get properties(){
     return {
@@ -33,8 +32,9 @@ return css`
     max-height: 30vh;
     background-color: lightskyblue;
     padding: 12px;
+    justify-content: space-between;
     }
-            .button {
+    .button {
         border: none;
         outline: 0;
         /* display: inline-block; */
@@ -47,11 +47,11 @@ return css`
         font-size: 8px;
         height: 1vh;
 
-        }
-        .button:hover,
-        .a:hover {
+    }
+    .button:hover,
+    .a:hover {
         opacity: 0.7;
-        }
+    }
     @media screen and (max-width: 1000px) {
     .web-series-overview {
         display: flex;

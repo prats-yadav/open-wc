@@ -33,6 +33,9 @@ export class WebSeriesApp extends LitElement{
         this.removeEventListener('card-details',(e)=>{
             this.webSeriesList=[...this.webSeriesList,...e.detail.webSeriesData];    
         });
+        this.addEventListener('card-delete',(e)=>{
+            this.webSeriesList=[...e.detail.webSeriesData];  
+        });
         super.disconnectedCallback();
     }
     
@@ -43,7 +46,7 @@ export class WebSeriesApp extends LitElement{
     }
     
     static get styles() {
-        return css`  
+    return css`  
     .web-series-app {
             display: flex;
             flex-direction: row;
@@ -52,14 +55,14 @@ export class WebSeriesApp extends LitElement{
             width:100%;
     }
     .web-card {
-    box-shadow: 0 4px 8px 0 rgba(138, 3, 3, 0.2);
-    margin: 12px;
-    text-align: center;
-    font-family: arial;
-    min-width: 40%;
-    max-height: 30vh;
-    background-color: lightskyblue;
-    padding: 12px;
+            box-shadow: 0 4px 8px 0 rgba(138, 3, 3, 0.2);
+            margin: 12px;
+            text-align: center;
+            font-family: arial;
+            min-width: 40%;
+            max-height: 30vh;
+            background-color: lightskyblue;
+            padding: 12px;
     }
         @media screen and (max-width: 1000px) {
             .web-series-app {

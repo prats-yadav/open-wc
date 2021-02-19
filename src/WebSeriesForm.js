@@ -1,7 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
-// import {WebCard} from './WebCard';
 
-// customElements.define('web-card', WebCard);
 export class WebSeriesForm extends LitElement{
 
 constructor(){
@@ -16,12 +14,12 @@ static get properties(){
 
 }
 
-static get style(){
-        return css`
-
+static get styles() {
+return css`  
 .web-series-form {
-width: 35%;
-float: left;
+width: 100%;
+display: flex;
+flex-direction: column;
 padding: 2px;
 border: 1px solid red;
 height: 90vh;
@@ -31,14 +29,13 @@ font-size: 10px;
 color: black;
 float: left;
 margin: auto;
-
 }
 .web-series-form-input {
 /* display: inline-block; */
-float: none;
+display: block;
+flex-direction: row;
 padding: 5px;
 }
-
 .title {
 color: grey;
 font-size: 12px;
@@ -62,8 +59,11 @@ height: 1vh;
 .a:hover {
 opacity: 0.7;
 }
-
-
+.web-series-checkbox {
+display: flex;
+flex-direction: column;
+padding: 5px;
+}
 @media screen and (max-width: 1000px) {
     .web-series-form {
       width: 35%;
@@ -75,6 +75,15 @@ opacity: 0.7;
     .text-box {
       width:70%;
     }
+  .web-series-form-input {
+/* display: inline-block; */
+padding: 5px;
+}
+.web-series-checkbox {
+display: flex;
+flex-direction: column;
+padding: 5px;
+}
 }
 `;
 
@@ -129,6 +138,12 @@ render() {
               <div class="web-series-form-input">
               <button @click=${this.addCardDetails} alt="addButton">Add</button>
               </div>
+
+              <div class="web-series-checkbox">
+              <input type="checkbox" id="movie" name="movie" value="movie" checked>
+              <input type="checkbox" id="series" name="series" value="series" checked>
+              </div>
+              
         </div>
     </div>
     
